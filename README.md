@@ -1,10 +1,10 @@
 # Octo Events REST Microservice
 
 Octo Events is a microservice application, built on top of
-[Kotlin](https://kotlinlang.org) and [Javalin](https://javalin.io) framework and
+[Kotlin](https://kotlinlang.org), [Javalin](https://javalin.io) framework and
 supported by [MongoDB NoSQL](https://www.mongodb.com/) database.
 
-The pourpose of this microservice is to listen to Github Events via webhooks
+The pourpose of this microservice is to listen to GitHub's Events via webhooks
 and expose them through a REST API for later use.
 
 ## Specification
@@ -225,7 +225,7 @@ GitHub:
 This endpoint will receive GitHub's Issues Events, process and store them on
 database, to be consumed later.
 
-**Endpoint:** *GET* http://localhost:7000/issues/<NUMBER>/events
+**Endpoint:** *GET* http://localhost:7000/issues/NUMBER/events
 
 **Format:**
 
@@ -267,19 +267,20 @@ This is a sample of a response (code 200) from this endpoint:
 ### Software Libraries
 
 #### Build Dependencies
-- javalin
-- kodein-di-generic-jvm
-- jackson-module-kotlin
-- kmongo
+- javalin (web framework)
+- kodein-di-generic-jvm (dependency injection)
+- jackson-module-kotlin (JSON manipulation)
+- kmongo (database manipulation)
+- konfig (properties file manupulation)
 
 #### Test Dependencies
-- knit
-- kotlin-test-junit
-- de.flapdoodle.embed.mongo
-- spring-web
+- knit (JUnit API set for Kotlin)
+- kotlin-test-junit (JUnit API for Kotlin)
+- de.flapdoodle.embed.mongo (embedded MongoBD instance)
+- spring-web (rest client)
 
 #### Runtime Dependencies
-- slf4j-simple
+- slf4j-simple (logger)
 
 ### Getting Started
 
@@ -294,7 +295,7 @@ This is a sample of a response (code 200) from this endpoint:
 5. After clone action is done, change to `octoevents` directory.
 6. Build a version of `Octo Events` by typing:
 
-   > mvn clean compile install
+   > mvn clean compile package
 
 7. After `mvn` command is done, change to `target` directory.
 8. Run application by typing:
@@ -303,15 +304,15 @@ This is a sample of a response (code 200) from this endpoint:
 
    - This application will listen to 7000 port, so ensure that this port is
      free, otherwise the application will not start.
-TODO   - If the port is **busy**, you will be able to change it. Just open
+   - If the port is **busy**, you will be able to change it. Just open
      `<PROJECT_ROOT_PATH>\src\main\resources\application.properties`
      and change the following property:
 
-     > server.port=<TYPE_NEW_PORT_HERE>
+     > octo.server.port=<TYPE_NEW_PORT_HERE>
 
    - **OBS**: Keep in mind that this action requires a new artifact
      construction (change directory to `<PROJECT_ROOT_PATH>` and follow *step
-     10* instructions).
+     6* instructions).
 9. Open a command console and type:
 
    > ngrok http 7000
@@ -319,7 +320,7 @@ TODO   - If the port is **busy**, you will be able to change it. Just open
 10. After the program starts, look up for your external DNS (log line should
     looks like the following sample):
 
-   > Forwarding                    http://38ea4caf.ngrok.io -> localhost:7000
+    > Forwarding                    http://38ea4caf.ngrok.io -> localhost:7000
 
 11. Open GitHub web site and choose a repository of yours (the example is this
     repository), then click *settings* -> *Whebhooks*:
@@ -333,7 +334,7 @@ TODO   - If the port is **busy**, you will be able to change it. Just open
 
 13. Open a browser window and type:
 
-   > http://localhost:7000/issues/1/events
+    > http://localhost:7000/issues/1/events
 
 14. This action allows you to retrieve all issue's events stored by this
     microservice. Keep in mind that it will only show results for GitHub's
@@ -350,16 +351,16 @@ TODO   - If the port is **busy**, you will be able to change it. Just open
 The application was built on top of Javalin Framework and Kotling language.
 Designed as a REST Microservice, Javalin allows an easy HTTP server creation
 and Kotlin cuts all verbose aspects of Java classes, but mantaining the same
-well known runtime evnironment: the Java's JVM.
+well known runtime environment: the Java's JVM.
 
 The database chosen to persist `Octo Events` data was `MongoDB`: a perfect
 choice to accomodate documents that comes back and forth as JSON objects.
 
 All classes that requires dependencies are using Kodein to deal with dependency
-injection. This lib is writen in Kotlin and supports the runtive environment
+injection. This lib is written in Kotlin and supports the runtime environment
 very well.
 
-Tests are using
+TODO Tests are using
 BankSlip API is fully tested. JUnit automates both Unit and Integration tests.
  Mockito helps you to mock complex object's behaviour, allowing you to cover many
  flows of your code design. Hamcrest provides matchers that can be combined to
@@ -390,6 +391,7 @@ Application's root package.
 Contains both Issue and Webhook endpoints.
 
 `IssueEndpoint`: is responsible for dealing with events stored on database.
+
 `WebhookEndpoint`: is responsible for processing events sent from GitHub.
 
 #### package br.com.acmattos.octo.event
@@ -397,7 +399,9 @@ Contains both Issue and Webhook endpoints.
 Contains artifacts that manipulates event's data.
 
 `Event`: Holds even's data processed and persisted on database.
+
 `EventDeserializer`: Converts GitHub's event data to Octo Events data.
+
 `EventService`: Makes the interface work with MongoDB, storing and retrieving
                 data from andd to it.
 
