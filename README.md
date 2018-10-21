@@ -1,8 +1,8 @@
 # Octo Events REST Microservice
 
 Octo Events is a microservice application, built on top of
-(Kotlin)[https://kotlinlang.org] and (Javalin)[https://javalin.io] framework and
-supported by (MongoDB NoSQL)[https://www.mongodb.com/] database.
+[Kotlin](https://kotlinlang.org) and [Javalin](https://javalin.io) framework and
+supported by [MongoDB NoSQL](https://www.mongodb.com/) database.
 
 This pourpose of this microservice is to listen to Github Events via webhooks
 and expose them through a REST API for later use.
