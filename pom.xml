@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+
+   <groupId>br.com.acmattos</groupId>
+   <artifactId>octo-events</artifactId>
+   <version>1.0.0</version>
+   <packaging>jar</packaging>
+
+   <name>Octo Events</name>
+
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <kotlin.version>1.2.71</kotlin.version>
+      <junit.version>4.12</junit.version>
+   </properties>
+   
+   <repositories>
+      <repository>
+         <id>jcenter</id>
+         <url>https://jcenter.bintray.com</url>
+      </repository>
+      <repository>
+         <id>knit</id>
+         <url>http://dl.bintray.com/ngsw-taro/maven</url>
+      </repository>
+   </repositories>
+
+   <dependencies>
+      <!-- Build Dependencies -->
+      <dependency>
+         <groupId>io.javalin</groupId>
+         <artifactId>javalin</artifactId>
+         <version>2.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.kodein.di</groupId>
+        <artifactId>kodein-di-generic-jvm</artifactId>
+        <version>5.3.0</version>
+      </dependency>
+      <dependency>
+         <groupId>com.fasterxml.jackson.module</groupId>
+         <artifactId>jackson-module-kotlin</artifactId>
+         <version>2.9.4.1</version>
+      </dependency>
+      <dependency>
+         <groupId>org.litote.kmongo</groupId>
+         <artifactId>kmongo</artifactId>
+         <version>3.8.3</version>
+      </dependency>
+   
+      <!-- TODO DOCUMENT -->
+      <dependency>
+         <groupId>com.natpryce</groupId>
+         <artifactId>konfig</artifactId>
+         <version>1.6.10.0</version>
+      </dependency>
+   
+      <!-- Test Dependencies -->
+      <dependency>
+         <groupId>com.taroid.knit</groupId>
+         <artifactId>knit</artifactId>
+         <version>0.1.2</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jetbrains.kotlin</groupId>
+         <artifactId>kotlin-test-junit</artifactId>
+         <version>${kotlin.version}</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>de.flapdoodle.embed</groupId>
+         <artifactId>de.flapdoodle.embed.mongo</artifactId>
+         <version>2.0.3</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-web</artifactId>
+         <version>3.0.2.RELEASE</version>
+         <scope>test</scope>
+      </dependency>
+      <!-- Runtime Dependencies -->
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-simple</artifactId>
+         <version>1.7.25</version>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <sourceDirectory>src/main/kotlin</sourceDirectory>
+      <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>2.3.2</version>
+            <configuration>
+               <source>1.8</source>
+               <target>1.8</target>
+               
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <version>${kotlin.version}</version>
+            <executions>
+               <execution>
+                  <id>compile</id>
+                  <phase>compile</phase>
+                  <goals>
+                     <goal>compile</goal>
+                  </goals>
+               </execution>
+               <execution>
+                  <id>test-compile</id>
+                  <phase>test-compile</phase>
+                  <goals>
+                     <goal>test-compile</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+              <jvmTarget>1.8</jvmTarget>
+            </configuration>
+         </plugin>
+         <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-assembly-plugin</artifactId>
+           <executions>
+             <execution>
+               <goals>
+                  <goal>attached</goal>
+               </goals>
+               <phase>package</phase>
+               <configuration>
+                  <finalName>oe-${version}</finalName>
+                  <appendAssemblyId>false</appendAssemblyId>
+                  <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                  </descriptorRefs>
+                  <archive>
+                    <manifest>
+                      <mainClass>br.com.acmattos.octo.MainKt</mainClass>
+                    </manifest>
+                  </archive>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
+      </plugins>
+   </build>
+</project>
