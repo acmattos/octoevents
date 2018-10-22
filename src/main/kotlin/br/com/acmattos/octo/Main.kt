@@ -19,7 +19,7 @@ import org.kodein.di.generic.singleton
  */
 val kodein = Kodein {
    val config = ConfigurationProperties.fromResource(
-      "./application.properties")
+      "application.properties")
    val port = config[Key("octo.server.port", intType)]
    val uri = config[Key("octo.mongodb.uri", stringType)]
    val database = config[Key("octo.mongodb.database", stringType)]
