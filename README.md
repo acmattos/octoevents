@@ -277,7 +277,7 @@ This is a sample of a response (code 200) from this endpoint:
 - knit (JUnit API set for Kotlin)
 - kotlin-test-junit (JUnit API for Kotlin)
 - de.flapdoodle.embed.mongo (embedded MongoBD instance)
-- spring-web (rest client)
+- spring-web (REST client)
 
 #### Runtime Dependencies
 - slf4j-simple (logger)
@@ -346,7 +346,7 @@ This is a sample of a response (code 200) from this endpoint:
     can repeat step 14 again. Now you'll get the result processed by this
     microservice.
 
- ### Architecture
+### Architecture
 
 The application was built on top of Javalin Framework and Kotling language.
 Designed as a REST Microservice, Javalin allows an easy HTTP server creation
@@ -356,11 +356,16 @@ well known runtime environment: the Java's JVM.
 The database chosen to persist `Octo Events` data was `MongoDB`: a perfect
 choice to accomodate documents that comes back and forth as JSON objects.
 
-All classes that requires dependencies are using Kodein to deal with dependency
-injection. This lib is written in Kotlin and supports the runtime environment
-very well.
+All classes are using Kodein to deal with dependency injection. This lib is
+written in Kotlin and supports the runtime environment very well.
 
+Konfig deals with properties file, providing an easy way to externalize some
+application's properties.
 
+Tests are supported by Knit and Kotlin Tent JUnit: JUnit APIs customized for
+Kotlin. Embedded MongoDB ("Organization Flapdoodle OSS") provides a platform
+neutral way for running a MongoDB instance during Integration Tests. Spring Web
+provides a REST client to be used inside our tests.
 
 ### API Packages
 
