@@ -212,7 +212,7 @@ GitHub:
    }
 }
 ```
-**Response Messages:**
+**Response Code Meaning:**
 
 | code  | Consequence                    |
 | :---: | ------------------------------ |
@@ -246,7 +246,7 @@ This is a sample of a response (code 200) from this endpoint:
    "body":"Number 4"
 }]
 ```
-**Response Messages:**
+**Response Code Meaning:**
 
 | code  | Consequence            |
 | :---: | ---------------------- |
@@ -359,13 +359,14 @@ choice to accomodate documents that comes back and forth as JSON objects.
 All classes are using Kodein to deal with dependency injection. This lib is
 written in Kotlin and supports the runtime environment very well.
 
-Konfig deals with properties file, providing an easy way to externalize some
-application's properties.
+Konfig deals with config properties file, providing an easy way to externalize
+some application's properties.
 
-Tests are supported by Knit and Kotlin Tent JUnit: JUnit APIs customized for
-Kotlin. Embedded MongoDB ("Organization Flapdoodle OSS") provides a platform
-neutral way for running a MongoDB instance during Integration Tests. Spring Web
-provides a REST client to be used inside our tests.
+Tests are supported by Knit and Kotlin Test JUnit: JUnit based APIs customized
+for Kotlin environment. Embedded MongoDB ("Organization Flapdoodle OSS")
+provides a platform neutral way for running a MongoDB instance during
+Integration Tests. Spring Web provides a REST client to be used inside our
+tests.
 
 ### API Packages
 
