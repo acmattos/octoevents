@@ -1,17 +1,13 @@
 package br.com.acmattos.octo.endpoint
 
 import br.com.acmattos.octo.event.EventService
-import br.com.acmattos.octo.kodein
 import io.javalin.Context
-import org.kodein.di.generic.instance
 
 /**
  * Deals with Issues' event data stored by this application.
  * @author acmattos
  */
-class IssueEndpoint() {
-   private val service: EventService by kodein.instance()
-
+class IssueEndpoint(private val service: EventService) {
    /**
     * Process HTTP GET requests for http://host:port/issues/<NUMBER>/events
     * Finds issues by its NUMBER.

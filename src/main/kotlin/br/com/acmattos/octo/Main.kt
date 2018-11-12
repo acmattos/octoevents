@@ -1,8 +1,8 @@
 package br.com.acmattos.octo
 
-import br.com.acmattos.octo.event.EventService
 import br.com.acmattos.octo.endpoint.IssueEndpoint
 import br.com.acmattos.octo.endpoint.WebhookEndpoint
+import br.com.acmattos.octo.event.EventService
 import br.com.acmattos.octo.server.HttpServer
 import com.natpryce.konfig.ConfigurationProperties
 import com.natpryce.konfig.Key
@@ -25,9 +25,9 @@ val kodein = Kodein {
    val database = config[Key("octo.mongodb.database", stringType)]
    val collection = config[Key("octo.mongodb.collection", stringType)]
 
-   bind<HttpServer>() with singleton { HttpServer(port) }
-   bind<WebhookEndpoint>() with singleton { WebhookEndpoint() }
-   bind<IssueEndpoint>() with singleton { IssueEndpoint() }
+   bind<HttpServer>() with singleton { HttpServer(port, instance(), instance()) }
+   bind<WebhookEndpoint>() with singleton { WebhookEndpoint(instance()) }
+   bind<IssueEndpoint>() with singleton { IssueEndpoint(instance()) }
    bind<EventService>() with singleton { EventService(
       uri, database, collection )}
 }

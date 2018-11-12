@@ -3,19 +3,15 @@ package br.com.acmattos.octo.endpoint
 import br.com.acmattos.octo.event.Event
 import br.com.acmattos.octo.event.EventDeserializer
 import br.com.acmattos.octo.event.EventService
-import br.com.acmattos.octo.kodein
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
 import io.javalin.Context
-import org.kodein.di.generic.instance
 
 /**
  * Deals with GitHub's event data processed by this application.
  * @author acmattos
  */
-class WebhookEndpoint() {
-   private val service: EventService by kodein.instance()
-
+class WebhookEndpoint(private val service: EventService) {
    /**
     * Process HTTP POST requests for http://host:port/webhooks
     * Processes GitHub's event data sent to this resource.

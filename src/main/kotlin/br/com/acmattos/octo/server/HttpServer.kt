@@ -2,17 +2,15 @@ package br.com.acmattos.octo.server
 
 import br.com.acmattos.octo.endpoint.IssueEndpoint
 import br.com.acmattos.octo.endpoint.WebhookEndpoint
-import br.com.acmattos.octo.kodein
 import io.javalin.Javalin
-import org.kodein.di.generic.instance
 
 /**
  * HTTP Server that listen to REST requests.
  * @author acmattos
  */
-class HttpServer(private val port: Int) {
-   private val webhookEndpoint: WebhookEndpoint by kodein.instance()
-   private val issueEndpoint: IssueEndpoint by kodein.instance()
+class HttpServer(private val port: Int,
+                 private val webhookEndpoint: WebhookEndpoint,
+                 private val issueEndpoint: IssueEndpoint) {
    private val app: Javalin
 
    init {
