@@ -9,36 +9,45 @@ import org.litote.kmongo.eq
 
 /**
  * Service that deals with MongoDB to persist and retrieve events.
+ *
  * @author acmattos
+ * @since 1.0.0
+ * @property mongodbUri Mongodb URI.
+ * @property database Database name.
+ * @property collection Collection Name.
+ * @constructor Creates an Event Service.
  */
-class EventService(private val mongodbUri: String,
-                   private val database: String,
-                   private val collection: String){
-   private val collectionDB: MongoCollection<Event>
+class EventService(
+    private val mongodbUri: String,
+    private val database: String,
+    private val collection: String
+) {
+    private val collectionDB: MongoCollection<Event>
 
-   init {
-      val client: MongoClient = KMongo.createClient(
-         uri = MongoClientURI(mongodbUri))
-      val database: MongoDatabase = client.getDatabase(database)
-      collectionDB = database.getCollection(collection, Event::class.java)
-   }
+    init {
+        val client: MongoClient = KMongo.createClient(
+            uri = MongoClientURI(mongodbUri)
+        )
+        val database: MongoDatabase = client.getDatabase(database)
+        collectionDB = database.getCollection(collection, Event::class.java)
+    }
 
-   /**
-    * Saves an event on database.
-    * @param event Event.
-    */
-   fun save(event: Event){
-      collectionDB.insertOne(event)
-      println("Event saved!")
-   }
+    /**
+     * Saves an event on database.
+     * @param event Event.
+     */
+    fun save(event: Event) {
+        collectionDB.insertOne(event)
+        println("Event saved!")
+    }
 
-   /**
-    * Finds a list of events based on theirs number.
-    * @param number Event's number.
-    * @return A list of events.
-    */
-   fun findByNumber(number: String): List<Event>{
-      return collectionDB.find(Event::number eq number)
-         .filter { _ -> true }
-   }
+    /**
+     * Finds a list of events based on theirs number.
+     * @param number Event's number.
+     * @return A list of events.
+     */
+    fun findByNumber(number: String): List<Event> {
+        return collectionDB.find(Event::number eq number)
+            .filter { _ -> true }
+    }
 }

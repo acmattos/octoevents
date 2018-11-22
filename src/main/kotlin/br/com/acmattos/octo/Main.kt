@@ -15,21 +15,27 @@ import org.kodein.di.generic.singleton
 
 /**
  * Bootstraps the application and sets up the dependency injection.
+ *
  * @author acmattos
+ * @since 1.0.0
  */
 val kodein = Kodein {
-   val config = ConfigurationProperties.fromResource(
-      "application.properties")
-   val port = config[Key("octo.server.port", intType)]
-   val uri = config[Key("octo.mongodb.uri", stringType)]
-   val database = config[Key("octo.mongodb.database", stringType)]
-   val collection = config[Key("octo.mongodb.collection", stringType)]
+    val config = ConfigurationProperties.fromResource(
+        "application.properties"
+    )
+    val port = config[Key("octo.server.port", intType)]
+    val uri = config[Key("octo.mongodb.uri", stringType)]
+    val database = config[Key("octo.mongodb.database", stringType)]
+    val collection = config[Key("octo.mongodb.collection", stringType)]
 
-   bind<HttpServer>() with singleton { HttpServer(port, instance(), instance()) }
-   bind<WebhookEndpoint>() with singleton { WebhookEndpoint(instance()) }
-   bind<IssueEndpoint>() with singleton { IssueEndpoint(instance()) }
-   bind<EventService>() with singleton { EventService(
-      uri, database, collection )}
+    bind<HttpServer>() with singleton { HttpServer(port, instance(), instance()) }
+    bind<WebhookEndpoint>() with singleton { WebhookEndpoint(instance()) }
+    bind<IssueEndpoint>() with singleton { IssueEndpoint(instance()) }
+    bind<EventService>() with singleton {
+        EventService(
+            uri, database, collection
+        )
+    }
 }
 
 /**
@@ -37,6 +43,7 @@ val kodein = Kodein {
  * @param args not used.
  */
 fun main(args: Array<String>) {
-   val httpServer: HttpServer by kodein.instance()
-   httpServer.start()
+    val httpServer: HttpServer by kodein.instance()
+    httpServer.start()
 }
+
